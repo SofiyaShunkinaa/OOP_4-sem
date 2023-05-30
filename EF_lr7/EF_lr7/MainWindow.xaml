@@ -1,0 +1,122 @@
+﻿<Window x:Class="EF_lr9.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EF_lr9" xmlns:System="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="1000">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="20 8 20 8" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="30" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="52*"/>
+            <ColumnDefinition Width="123*"/>
+            <ColumnDefinition Width="52*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="1" Grid.Column="1">
+            <DockPanel>
+                <DataGrid AutoGenerateColumns="False" x:Name="flowersGrid" Grid.RowSpan="2" Margin="5,5,5,0" Height="180" VerticalAlignment="Top" DockPanel.Dock="Top">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Title}" Header="Название" Width="*"/>
+                        <DataGridTextColumn Binding="{Binding Family}" Header="Семейство" Width="*"/>
+                        <DataGridTextColumn Binding="{Binding Price}" Header="Цена" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <ListViewItem Name="FilterListView" >
+                    <ListBox Name="FilterListBox" Height="130" Width="530" Margin="0 5 0 0"/>
+                </ListViewItem>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
+            <StackPanel HorizontalAlignment="Center"  Grid.Row="1" Orientation="Horizontal" Grid.RowSpan="2">
+
+                <Button x:Name="editButton" Click="editButton_Click" Style="{StaticResource ButtonPink}" Width="100" Content="Изменть"></Button>
+                <Button x:Name="updateButton" Click="updateButton_Click" Style="{StaticResource ButtonPink}" Width="100" HorizontalContentAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Обновить" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="deleteButton" Style="{StaticResource ButtonPink}" Width="100" Content="Удалить" Click="deleteButton_Click" />
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" CornerRadius="0 0 10 10" Background="#FFDC0097">
+            <StackPanel>
+                <TextBlock Text="Flower data base" Foreground="white" Margin="20 5 0 0" HorizontalAlignment="Left" FontSize="22" FontWeight="SemiBold"></TextBlock>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.RowSpan="2" Background="#FFDC0097" CornerRadius="0 10 10 0">
+            <DockPanel>
+
+                <TextBlock Text="Фильтр и поиск" Foreground="White" FontSize="18" FontWeight="SemiBold" x:Name="TitleTexBlock"
+                                   DockPanel.Dock="Top" TextAlignment="Center" Margin="10" />
+
+                <Separator Margin="25 20" DockPanel.Dock="Top" Height="0.8" Background="LightPink" />
+
+                <TextBlock DockPanel.Dock="Top" Text="Сортировка" Margin="25 0 25 10" Foreground="White" />
+                <ComboBox DockPanel.Dock="Top" Height="25" Margin="25 0" Name="SortingComboBox" SelectionChanged="SortingComboBox_SelectionChanged" SelectedIndex="-1">
+                    <System:String>По возрастанию цены</System:String>
+                    <System:String>По убыванию цены</System:String>
+                </ComboBox>
+
+                <TextBlock DockPanel.Dock="Top" Text="Поиск по названию" Margin="25 20 25 10" Foreground="White" />
+                <TextBox DockPanel.Dock="Top" Height="25" Margin="25 0" Text="" Name="TitleTextBoxSearch"/>
+
+                <TextBlock DockPanel.Dock="Top" Text="Поиск по семейству" Margin="25 20 25 10" Foreground="White" />
+                <TextBox DockPanel.Dock="Top" Height="25" Margin="25 0" Text="" VerticalAlignment="Top" Name="FamilyTextBoxSearch"/>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Background="#FFDC0097" CornerRadius="10 0 0 10">
+
+            <DockPanel>
+
+                <TextBlock Text="Добавление/изменение" Foreground="White" FontSize="18" FontWeight="SemiBold"
+                                   DockPanel.Dock="Top" TextAlignment="Center" Margin="10" />
+                <Separator Margin="25 20" DockPanel.Dock="Top" Height="0.8" Background="LightPink" />
+
+                <TextBlock DockPanel.Dock="Top" Text="Название" Margin="25 0 25 10" Foreground="White" />
+                <TextBox DockPanel.Dock="Top" Height="25" Margin="25 0" x:Name="TitleTextBox" Text="{Binding Title}"/>
+
+                <TextBlock DockPanel.Dock="Top" Text="Семейство" Margin="25 20 25 10" Foreground="White" />
+                <TextBox DockPanel.Dock="Top" Height="25" Margin="25 0" Text="{Binding Family}" x:Name="FamilyTextBox"/>
+
+                <TextBlock DockPanel.Dock="Top" Text="Цена" Margin="25 20 25 10" Foreground="White" />
+                <TextBox DockPanel.Dock="Top" Height="25" Margin="25 0" VerticalAlignment="Top" Text="{Binding Price}" x:Name="PriceTextBox"/>
+
+
+            </DockPanel>
+            
+        </Border>
+        <Border Grid.Row="2" >
+            <Button Content="Искать" Style="{StaticResource ButtonWhite}" VerticalAlignment="Bottom" Margin="0 0 0 15" Name="SearchButton" Click="SearchButton_Click"></Button>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="2">
+            <Button Content="Сохранить" Style="{StaticResource ButtonWhite}" VerticalAlignment="Bottom" Margin="0 0 0 15" x:Name="addButton" Click="addButton_Click"></Button>
+        </Border>
+
+        <Border Grid.Column="0" Grid.Row="0">
+            <Button Content="Синхронная работа" Style="{StaticResource ButtonPink}" Width="150" Height="30" Name="SyncBtn" Click="SyncBtn_Click"></Button>
+        </Border>
+
+        <Border Grid.Column="2">
+            <Button Content="Асинхронная работа" Style="{StaticResource ButtonPink}" Width="150" Height="30" Name="AsyncBtn" Click="AsyncBtn_Click"></Button>
+        </Border>
+
+    </Grid>
+</Window>
